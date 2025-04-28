@@ -1,0 +1,191 @@
+/* Общие стили */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Jura", sans-serif;
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Шапка */
+header {
+    width: 100%;
+    padding: 20px 0;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header .logo img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+header h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+/* Основной контент */
+main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+main .content {
+    max-width: 600px;
+    padding: 20px;
+}
+
+main .main-logo {
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+main h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+main p {
+    font-size: 16px;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+main .start-button {
+    padding: 15px 30px;
+    font-size: 18px;
+    color: white;
+    background-color: #6401c4;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+main .start-button:hover {
+    background-color: #5900b1;
+}
+
+/* Футер */
+footer {
+    width: 100%;
+    padding: 20px 0;
+    background-color: white;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    font-size: 14px;
+    color: #000000;
+}
+.auth-form {
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 300px;
+    height: 45px;
+    padding: 10px;
+    background-color: #6401c4;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-family: "Jura", sans-serif;
+}
+
+button:hover {
+    background-color: #5900b1;
+}
+
+p {
+    text-align: center;
+    margin-top: 10px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+.txtimp{
+    border-radius: 15px;
+    border: 1px solid rgb(212, 212, 212);
+    font-family: "Jura", sans-serif;
+}
+#notification-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.notification {
+    position: relative;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.notification.green {
+    background-color: #4CAF50;
+}
+
+.notification.red {
+    background-color: #F44336;
+}
+
+.notification .progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 100%;
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: transform 0.1s linear;
+}

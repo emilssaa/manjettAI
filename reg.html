@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="style2.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jura:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="icon" href="img/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+</head>
+<body>
+    <!-- Шапка -->
+    <header>
+        <div class="logo">
+            <a href="/"><img src="/img/logo.png" alt="Логотип ManjettAi"></a>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main>
+        <div class="registration-form">
+            <h2>Регистрация</h2>
+            
+                <div class="form-group">
+                    <label for="username">Имя пользователя:</label>
+                    <input type="text" id="username" name="username" class="txtimp" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль:</label>
+                    <input type="password" id="password" name="password" class="txtimp" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Подтвердите пароль:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="txtimp" required>
+                </div>
+                <button onclick="reg()">Зарегистрироваться</button>
+            
+            <p>Уже есть аккаунт? <a href="/aunt">Войти</a></p>
+        </div>
+    </main>
+    <div id="notification-container"></div>
+    <!-- Футер -->
+    <footer>
+        <p>&copy; 2025 ManjettAI.</p>
+    </footer>
+
+    <script src="socket.io/socket.io.js"></script>
+    <script>
+        // Вызов  модуля socket.io на клиенте
+        const socket = io()
+        //функция сбора данных для для регистрации
+        function reg(){
+            let logins = document.getElementById("username").value
+            socket.emit("proverka", logins)
+        }
+        socket.on("непроверка", () => {
+            showNotification('Пользователь с таким именем уже зарегестрирован!', 'red', 3000);
+        })
+        socket.on("еспроверка", () => {
+            let логин = document.getElementById("username").value
+            let пароль = document.getElementById("password").value
+            let пароль1 = document.getElementById("confirmPassword").value
+            if(логин&&пароль&&пароль1){
+                if(пароль == пароль1){
+                let user = {
+                "login": логин,
+                "password": пароль,
+                "akk": 5
+            }
+            socket.emit("регистрация", user)
+            showNotification('Вы успешно зарегестрировались! Войдите сейчас!', 'green', 5000);
+            setTimeout(() => {
+                window.location.href = '/aunt'; 
+            }, 500);
+            
+            }else{
+                showNotification('Пароли должны совпадать!', 'red', 3000);
+            }
+            }else{
+                showNotification('Все поля должны быть заполнены!', 'red', 3000);
+            } 
+        })
+    function showNotification(message, type, duration = 5000) {
+    const container = document.getElementById('notification-container');
+    
+    // Создаем уведомление
+    const notification = document.createElement('div');
+    notification.classList.add('notification', type);
+    notification.textContent = message;
+
+    // Создаем полоску времени
+    const progressBar = document.createElement('div');
+    progressBar.classList.add('progress-bar');
+    notification.appendChild(progressBar);
+
+    // Добавляем уведомление в контейнер
+    container.appendChild(notification);
+
+    // Запускаем анимацию полоски времени
+    let startTime = Date.now();
+    const interval = setInterval(() => {
+        const elapsedTime = Date.now() - startTime;
+        const progress = 1 - (elapsedTime / duration);
+        progressBar.style.transform = `scaleX(${progress})`;
+
+        if (elapsedTime >= duration) {
+            clearInterval(interval);
+            notification.remove();
+        }
+    }, 10);
+
+    // Удаляем уведомление при клике
+    notification.addEventListener('click', () => {
+        clearInterval(interval);
+        notification.remove();
+    });
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ManjettAI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jura:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="icon" href="img/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Боковая панель -->
+        <div class="sidebar">
+            <div class="sidebar-top">
+                <img src="img/txt.png" alt="Логотип" class="txte">
+                <button id="new-chat">+ Новый чат</button>
+            </div>
+            <button id="toggle-sidebar">☰</button>
+            <div id="chat-list">
+                <!-- Список чатов будет здесь -->
+            </div>
+            <div class="sidebar-bottom">
+                <button id="profile-btn">👤 Профиль</button>
+                <div id="profile-info" class="hidden">
+                    <div class="user-info">
+                        <p>Имя: <span id="usernameDisplay"></span></p>
+                        <p>Доступных профилей: <span id="akkDisplay"></span></p>
+                    </div>
+                    <button id="logout-btn">Выйти</button>
+                </div>
+            </div>
+            <div id="sidebar-logo" class="sidebar-logo hidden">
+                <img src="img/logo.png" alt="Логотип" class="logo-small">
+            </div>
+        </div>
+
+        <!-- Основная область чата -->
+        <div class="chat-area">
+            <!-- Логотип, название и текст -->
+            <div id="welcome-screen" class="welcome-screen">
+                <div class="welcome-header">
+                    <img src="img/logo.png" alt="Логотип" class="welcome-logo">
+                    <h1 class="welcome-title">Привет, я - ManjettAI</h1>
+                </div>
+                <p class="welcome-text">Чем могу помочь сегодня?</p>
+            </div>
+
+            <!-- Сообщения -->
+            <div id="chat-messages" class="chat-messages">
+                <!-- Сообщения будут здесь -->
+            </div>
+
+            <!-- Поле ввода -->
+            <div class="input-area">
+                <!-- Выдвигающееся поле -->
+                <div id="extended-options" class="extended-options hidden">
+                    <div class="option-row">
+                        <div class="tooltip-wrapper">
+                            <select id="modelSelect">
+                                <option>Обычный</option>
+                                <option>Злой</option>
+                                <option>Добрый</option>
+                                <option>Квадробер</option>
+                                <option>Грустный</option>
+                                <option>Степан</option>
+                                <option value="custom">Пользовательский</option>
+                            </select>
+                            <span class="tooltip-text">Выберите модель</span>
+                        </div>
+                        
+                        <div id="custom-options" class="custom-options hidden">
+                            <div class="tooltip-wrapper">
+                                <select id="typeSelect">
+                                    <option>Профиль 1</option>
+                                    <option>Профиль 2</option>
+                                </select>
+                                <span class="tooltip-text">Выберите профиль</span>
+                            </div>
+                            
+                            <div class="tooltip-wrapper">
+                                <button id="edit-profile-btn">Редактировать профиль</button>
+                                <span class="tooltip-text">Изменить настройки/удалить профиль</span>
+                            </div>
+                            
+                            <div class="tooltip-wrapper">
+                                <button id="add-profile-btn">Добавить профиль</button>
+                                <span class="tooltip-text">Создать новый уникальный профиль</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Основное поле ввода -->
+                <div class="main-input">
+                    <button id="toggle-options">⚙️</button>
+                    <textarea id="chat-input" placeholder="Введите сообщение..."></textarea>
+                    <div class="button-group">
+                        <img src="img/go.png" id="send-btn" alt="Иконка" class="dropdown-icon">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Кнопка "Вниз" -->
+        <button id="scroll-to-bottom">↓</button>
+    </div>
+
+    <!-- Модальные окна -->
+    <div id="add-profile-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Новый профиль</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="profileName">Имя профиля:</label>
+                    <div class="input-with-tooltip">
+                        <input type="text" id="profileName" placeholder="Введите имя профиля">
+                        <span class="tooltip-icon" data-tooltip="Уникальное имя для вашего профиля">?</span>
+                        <div class="tooltip">Уникальное имя для вашего профиля</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="userName">Ваше имя:</label>
+                    <div class="input-with-tooltip">
+                        <input type="text" id="userName" placeholder="Введите ваше имя">
+                        <span class="tooltip-icon" data-tooltip="Как к вам обращаться">?</span>
+                        <div class="tooltip">Как бот будет к вам обращаться</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="profileInfo">Настроение бота:</label>
+                    <div class="input-with-tooltip">
+                        <input type="text" id="profileInfo" placeholder="Опишите характер бота">
+                        <span class="tooltip-icon" data-tooltip="Как должен вести себя бот (добрый, злой и т.д.)">?</span>
+                        <div class="tooltip">Как должен вести себя бот (добрый, злой и т.д.)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="save-profile-btn" class="btn-primary">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-profile-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Редактировать профиль</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="profileName1">Имя профиля:</label>
+                    <div class="input-with-tooltip">
+                        <input type="text" id="profileName1" placeholder="Введите имя профиля">
+                        <span class="tooltip-icon" data-tooltip="Уникальное имя для вашего профиля">?</span>
+                        <div class="tooltip">Уникальное имя для вашего профиля</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="userName1">Ваше имя:</label>
+                    <div class="input-with-tooltip">
+                        <input type="text" id="userName1" placeholder="Введите ваше имя">
+                        <span class="tooltip-icon" data-tooltip="Как к вам обращаться">?</span>
+                        <div class="tooltip">Как бот будет к вам обращаться</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="profileInfo1">Настроение бота:</label>
+                    <div class="input-with-tooltip">
+                        <input type="text" id="profileInfo1" placeholder="Опишите характер бота">
+                        <span class="tooltip-icon" data-tooltip="Как должен вести себя бот (добрый, злой и т.д.)">?</span>
+                        <div class="tooltip">Как должен вести себя бот (добрый, злой и т.д.)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="save-edit-profile-btn" class="btn-primary">Сохранить</button>
+                <button id="delete-profile-btn" class="btn-danger">Удалить профиль</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirm-delete-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Подтверждение удаления</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Вы уверены, что хотите удалить профиль "<span id="profile-to-delete"></span>"? Это действие нельзя отменить.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm-delete-btn" class="btn-danger">Удалить</button>
+                <button id="cancel-delete-btn" class="btn-secondary">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="clear-chat-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Очистка чата</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Вы уверены что хотите очистить чат? Все сообщения будут удалены безвозвратно.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm-clear-chat-btn" class="btn-danger">Очистить</button>
+                <button id="cancel-clear-chat-btn" class="btn-secondary">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

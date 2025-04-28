@@ -1,0 +1,18 @@
+[
+    {
+        "login": "123",
+        "password": "123",
+        "akk": 5,
+        "session": "4eafHA20"
+    },
+    {
+        "login": "777",
+        "password": "777",
+        "akk": 4
+    },
+    {
+        "login": "111",
+        "password": "111",
+        "akk": 5
+    }
+]
